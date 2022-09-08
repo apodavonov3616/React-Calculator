@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+.row {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  background-color: #f38021;
+  padding: 10px;
+}
+
+#calculator {
+  width: 70%;
+  padding-left: 15%;
+  padding-top: 20%;
+}
+
+#equals {
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  
+}
+
+#equals-button {
+  width: 50%;
+  background-color: rgb(235, 71, 6);
+}
