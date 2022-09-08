@@ -32,6 +32,7 @@ export default class Calculator extends React.Component {
 
     parseMultiplicationSeparatedExpression = (expression) => {
         const numbersString = this.split(expression, '*');
+        // right now we just split based on * so for each one of these we have to call division
         const numbers = numbersString.map(noStr => {
             if (noStr[0] == '(') {
                 const expr = noStr.substr(1, noStr.length - 2);
@@ -45,23 +46,7 @@ export default class Calculator extends React.Component {
         return result;
     };
 
-    parseDivisionSeparatedExpression = (expression) => {
-        const numbersString = this.split(expression, '/');
-        const numbers = numbersString.map(noStr => {
-            if (noStr[0] == '(') {
-                const expr = noStr.substr(1, noStr.length - 2);
-                // recursive call to the main function
-                return this.parsePlusSeparatedExpression(expr);
-            }
-            return +noStr;
-        });
-        const initialValue = numbers[0];
-        const result = numbers.slice(1).reduce((acc, no) => acc / no, initialValue);
-        return result;
-        // const initialValue = 1.0;
-        // const result = numbers.reduce((acc, no) => acc * no, initialValue);
-        // return result;
-    };
+    
 
     split = (expression, operator) => {
         const result = [];
