@@ -8,6 +8,18 @@ export default class Calculator extends React.Component {
             result: '',
         }
         this.handleClick = this.handleClick.bind(this)
+        this.evaluate = this.evaluate.bind(this)
+    }
+
+    evaluate() {
+        console.log('hi')
+        let answer = this.state.result;
+        const numbersString = answer.split('+');
+        const numbers = numbersString.map(noStr => parseInt(noStr))
+        console.log(numbers)
+        const initialValue = 0.0
+        const result = numbers.reduce((acc, no) => acc + no, initialValue)
+        this.setState({result: result})
     }
 
     handleClick(event) {
@@ -17,9 +29,8 @@ export default class Calculator extends React.Component {
         } else if (['0','1','2','3','4','5','6','7','8','9','*','/','+','-','.'].includes(symbol)){
             this.setState({ result: this.state.result+=symbol})
         } else {
-            let answer = this.state.result;
             try {
-                this.setState({result: eval(answer)})
+                this.evaluate()
             } catch {
                 this.setState({result: ''})
                 window.alert('invalid input :"(')
