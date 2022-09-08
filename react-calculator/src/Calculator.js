@@ -9,16 +9,89 @@ export default class Calculator extends React.Component {
         }
         this.handleClick = this.handleClick.bind(this)
         this.evaluate = this.evaluate.bind(this)
+        this.parsePlusSeparatedExpression = this.parsePlusSeparatedExpression.bind(this)
+        this.parseMinusSeparatedExpression = this.parseMinusSeparatedExpression.bind(this)
+        this.split = this.split.bind(this)
     }
+
+    parsePlusSeparatedExpression = (expression) => {
+        const numbersString = this.split(expression, '+');
+        const numbers = numbersString.map(noStr => this.parseMinusSeparatedExpression(noStr));
+        const initialValue = 0.0;
+        const result = numbers.reduce((acc, no) => acc + no, initialValue);
+        return result
+    };
+
+    parseMinusSeparatedExpression = (expression) => {
+        const numbersString = this.split(expression, '-');
+        const numbers = numbersString.map(noStr => this.parseMultiplicationSeparatedExpression(noStr));
+        const initialValue = numbers[0];
+        const result = numbers.slice(1).reduce((acc, no) => acc - no, initialValue);
+        return result;
+    };
+
+    parseMultiplicationSeparatedExpression = (expression) => {
+        const numbersString = this.split(expression, '*');
+        const numbers = numbersString.map(noStr => {
+            if (noStr[0] == '(') {
+                const expr = noStr.substr(1, noStr.length - 2);
+                // recursive call to the main function
+                return this.parsePlusSeparatedExpression(expr);
+            }
+            return +noStr;
+        });
+        const initialValue = 1.0;
+        const result = numbers.reduce((acc, no) => acc * no, initialValue);
+        return result;
+    };
+
+    parseDivisionSeparatedExpression = (expression) => {
+        const numbersString = this.split(expression, '/');
+        const numbers = numbersString.map(noStr => {
+            if (noStr[0] == '(') {
+                const expr = noStr.substr(1, noStr.length - 2);
+                // recursive call to the main function
+                return this.parsePlusSeparatedExpression(expr);
+            }
+            return +noStr;
+        });
+        const initialValue = numbers[0];
+        const result = numbers.slice(1).reduce((acc, no) => acc / no, initialValue);
+        return result;
+        // const initialValue = 1.0;
+        // const result = numbers.reduce((acc, no) => acc * no, initialValue);
+        // return result;
+    };
+
+    split = (expression, operator) => {
+        const result = [];
+        let braces = 0;
+        let currentChunk = "";
+        for (let i = 0; i < expression.length; ++i) {
+            const curCh = expression[i];
+            if (curCh == '(') {
+                braces++;
+            } else if (curCh == ')') {
+                braces--;
+            }
+            if (braces == 0 && operator == curCh) {
+                result.push(currentChunk);
+                currentChunk = "";
+            } else currentChunk += curCh;
+        }
+        if (currentChunk != "") {
+            result.push(currentChunk);
+        }
+        return result;
+    };
 
     evaluate() {
         console.log('hi')
         let answer = this.state.result;
-        const numbersString = answer.split('+');
-        const numbers = numbersString.map(noStr => parseInt(noStr))
-        console.log(numbers)
-        const initialValue = 0.0
-        const result = numbers.reduce((acc, no) => acc + no, initialValue)
+
+        //let's separate by plus first
+        const numbersString = this.split(answer, '+')
+        const result = this.parsePlusSeparatedExpression(answer, '+');
         this.setState({result: result})
     }
 
