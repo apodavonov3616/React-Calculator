@@ -11,6 +11,7 @@ export default class Calculator extends React.Component {
         this.evaluate = this.evaluate.bind(this)
         this.parsePlusSeparatedExpression = this.parsePlusSeparatedExpression.bind(this)
         this.parseMinusSeparatedExpression = this.parseMinusSeparatedExpression.bind(this)
+        this.parseDivisionSeparatedExpression = this.parseDivisionSeparatedExpression.bind(this)
         this.split = this.split.bind(this)
     }
 
@@ -24,9 +25,17 @@ export default class Calculator extends React.Component {
 
     parseMinusSeparatedExpression = (expression) => {
         const numbersString = this.split(expression, '-');
-        const numbers = numbersString.map(noStr => this.parseMultiplicationSeparatedExpression(noStr));
+        const numbers = numbersString.map(noStr => this.parseDivisionSeparatedExpression(noStr));
         const initialValue = numbers[0];
         const result = numbers.slice(1).reduce((acc, no) => acc - no, initialValue);
+        return result;
+    };
+
+    parseDivisionSeparatedExpression = (expression) => {
+        const numbersString = this.split(expression, '/');
+        const numbers = numbersString.map(noStr => this.parseMultiplicationSeparatedExpression(noStr));
+        const initialValue = numbers[0];
+        const result = numbers.slice(1).reduce((acc, no) => acc / no, initialValue);
         return result;
     };
 
