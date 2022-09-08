@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .App-logo {
@@ -45,9 +47,7 @@
 }
 
 #calculator {
-  width: 70%;
-  padding-left: 15%;
-  padding-top: 20%;
+  width: 400;
 }
 
 #equals {
@@ -60,4 +60,9 @@
 #equals-button {
   width: 50%;
   background-color: rgb(235, 71, 6);
+}
+
+.result {
+  height: 25px;
+  background-color: #cbffdf;
 }

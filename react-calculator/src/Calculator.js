@@ -31,7 +31,7 @@ export default class Calculator extends React.Component {
         return (
             <div id="calculator">
                 <h1>Alisher's Calculator</h1>
-                <div>{this.state.result}</div>
+                <div className="result">{this.state.result}</div>
                 <div className="row">
                     <button value="7" onClick={this.handleClick}>7</button>
                     <button value="8" onClick={this.handleClick}>8</button>
