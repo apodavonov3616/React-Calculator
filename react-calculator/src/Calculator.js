@@ -54,16 +54,16 @@ export default class Calculator extends React.Component {
 
     split = (expression, operator, operator2) => {
         const result = [];
-        let braces = 0;
+        let parenthesis = 0;
         let portion = "";
         for (let i = 0; i < expression.length; ++i) {
             const char = expression[i];
             if (char == '(') {
-                braces++;
+                parenthesis++;
             } else if (char == ')') {
-                braces--;
+                parenthesis--;
             }
-            if (braces == 0 && (operator == char || operator2 == char)) {
+            if (parenthesis == 0 && (operator == char || operator2 == char)) {
                 result.push(portion);
                 portion = "";
             } else portion += char;
@@ -108,12 +108,6 @@ export default class Calculator extends React.Component {
                 this.setState({ result: '' })
                 window.alert('invalid input :"(')
             }
-        }
-        debugger
-        console.log('hello')
-        if (this.state.result === NaN) {
-            this.setState({ result: '' })
-            window.alert('invalid input :"(')
         }
     }
 

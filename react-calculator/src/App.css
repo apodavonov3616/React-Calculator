@@ -2,6 +2,10 @@ html {
   background-color: black;
 }
 
+h1 {
+  color: white;
+}
+
 .App {
   text-align: center;
   display: flex;
