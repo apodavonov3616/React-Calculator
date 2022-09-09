@@ -76,7 +76,16 @@ export default class Calculator extends React.Component {
         return result;
     };
 
-
+    factorial() {
+        let result = this.state.result;
+        if (this.state.result === 0 || this.state.result === 1)
+            return 1;
+        while (this.state.result > 1) {
+            this.state.result--;
+            result *= this.state.result;
+        }
+        this.setState({ result: result })
+    }
 
     evaluate() {
         let answer = this.state.result;
@@ -99,8 +108,8 @@ export default class Calculator extends React.Component {
             this.evaluate()
             if (symbol === '^2') {
                 this.setState({ result: Math.pow(this.state.result, 2) })
-            } else if (symbol === '^3') {
-                this.setState({ result: Math.pow(this.state.result, 3) })
+            } else if (symbol === '!') {
+                this.factorial()
             } else if (symbol === 'sin') {
                 this.setState({ result: Math.round(Math.sin(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
             } else if (symbol === 'cos') {
@@ -144,7 +153,7 @@ export default class Calculator extends React.Component {
                     <Button value="." label="." onClick={this.handleClick} color="beige" />
                     <Button value="c" label="C" onClick={this.handleClick} color="pink" />
                     <Button value="^2" label="^2" onClick={this.handleClick} color="pink" />
-                    <Button value="^3" label="^3" onClick={this.handleClick} color="pink" />
+                    <Button value="!" label="!" onClick={this.handleClick} color="pink" />
                 </div>
                 <div className="row">
                     <Button value="sin" label="sin" onClick={this.handleClick} color="pink" />
