@@ -7,11 +7,6 @@ export default class Calculator extends React.Component {
             result: '',
         }
         this.handleClick = this.handleClick.bind(this)
-        this.evaluate = this.evaluate.bind(this)
-        this.parsePlus = this.parsePlus.bind(this)
-        this.parseMinus = this.parseMinus.bind(this)
-        this.parseMultiplyAndDivide = this.parseMultiplyAndDivide.bind(this)
-        this.split = this.split.bind(this)
     }
 
     parsePlus = (expression) => {
@@ -31,14 +26,12 @@ export default class Calculator extends React.Component {
     };
 
     parseMultiplyAndDivide = (expression) => {
-        debugger
         let order = []
         for (const char of expression) {
             if (char === "*" || char === "/") {
                 order.push(char)
             }
         }
-        debugger
         const numbersString = this.split(expression, '*', '/');
         const numbers = numbersString.map(noStr => {
             if (noStr[0] == '(') {
@@ -82,9 +75,8 @@ export default class Calculator extends React.Component {
     };
 
     evaluate() {
-        console.log('hi')
         let answer = this.state.result;
-        const result = this.parsePlus(answer, '+');
+        const result = this.parsePlus(answer);
         this.setState({ result: result })
     }
 
@@ -94,6 +86,21 @@ export default class Calculator extends React.Component {
             this.setState({ result: '' })
         } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '.', '(', ')'].includes(symbol)) {
             this.setState({ result: this.state.result += symbol })
+        } else if (['^2'].includes(symbol)) {
+            this.evaluate()
+            this.setState({ result: Math.pow(this.state.result, 2) })
+        } else if (['^3'].includes(symbol)) {
+            this.evaluate()
+            this.setState({ result: Math.pow(this.state.result, 3) })
+        } else if (symbol === 'sin') {
+            this.evaluate()
+            this.setState({ result: Math.sin(this.state.result) })
+        } else if (symbol === 'cos') {
+            this.evaluate()
+            this.setState({ result: Math.cos(this.state.result) })
+        } else if (symbol === 'tan') {
+            this.evaluate()
+            this.setState({ result: Math.tan(this.state.result * 180) })
         } else {
             try {
                 this.evaluate()
@@ -133,9 +140,16 @@ export default class Calculator extends React.Component {
                     <button value="c" onClick={this.handleClick}>c</button>
                     <button value="/" onClick={this.handleClick}>/</button>
                 </div>
-                <div className="last-row">
+                <div className="row">
                     <button value="(" onClick={this.handleClick}>(</button>
                     <button value=")" onClick={this.handleClick}>)</button>
+                    <button value="^2" onClick={this.handleClick}>^2</button>
+                    <button value="^3" onClick={this.handleClick}>^3</button>
+                </div>
+                <div className="row">
+                    <button value="sin" onClick={this.handleClick}>sine</button>
+                    <button value="cos" onClick={this.handleClick}>cos</button>
+                    <button value="tan" onClick={this.handleClick}>tan</button>
                     <button id="equals-button" value="=" onClick={this.handleClick}>=</button>
                 </div>
             </div>
