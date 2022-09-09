@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React from "react";
 
 export default class Calculator extends React.Component {
@@ -11,7 +10,7 @@ export default class Calculator extends React.Component {
         this.evaluate = this.evaluate.bind(this)
         this.parsePlusSeparatedExpression = this.parsePlusSeparatedExpression.bind(this)
         this.parseMinusSeparatedExpression = this.parseMinusSeparatedExpression.bind(this)
-        this.parseMulitplicationSeparatedExpression = this.parseMultiplicationSeparatedExpression.bind(this)
+        this.parseMultiplicationAndDivisionSeparatedExpression = this.parseMultiplicationAndDivisionSeparatedExpression.bind(this)
         this.split = this.split.bind(this)
     }
 
@@ -25,21 +24,13 @@ export default class Calculator extends React.Component {
 
     parseMinusSeparatedExpression = (expression) => {
         const numbersString = this.split(expression, '-');
-        const numbers = numbersString.map(noStr => this.parseMultiplicationSeparatedExpression(noStr));
+        const numbers = numbersString.map(noStr => this.parseMultiplicationAndDivisionSeparatedExpression(noStr));
         const initialValue = numbers[0];
         const result = numbers.slice(1).reduce((acc, no) => acc - no, initialValue);
         return result;
     };
 
-    // parseDivisionSeparatedExpression = (expression) => {
-    //     const numbersString = this.split(expression, '/');
-    //     const numbers = numbersString.map(noStr => this.parseMultiplicationSeparatedExpression(noStr));
-    //     const initialValue = numbers[0];
-    //     const result = numbers.slice(1).reduce((acc, no) => acc / no, initialValue);
-    //     return result;
-    // };
-
-    parseMultiplicationSeparatedExpression = (expression) => {
+    parseMultiplicationAndDivisionSeparatedExpression = (expression) => {
         debugger
         let order = []
         for (const char of expression) {
@@ -49,25 +40,14 @@ export default class Calculator extends React.Component {
         }
         debugger
         const numbersString = this.split(expression, '*', '/');
-        // right now we just split based on * so for each one of these we have to call division
         const numbers = numbersString.map(noStr => {
             if (noStr[0] == '(') {
                 const expr = noStr.substr(1, noStr.length - 2);
-                // recursive call to the main function
                 return this.parsePlusSeparatedExpression(expr);
             }
             return +noStr;
         });
         let result = numbers[0];
-        // const reducer = (sum, val) => {
-        //     if (order[0] == "*") {
-        //         sum *= val
-        //     } else {
-        //         sum /= val
-        //     }
-        //     order.shift()
-        // }
-        // const result = numbers.slice(1).reduce(reducer, initialValue);
         for (const number of numbers.slice(1)) {
             if (order[0] == "*") {
                 result *= number
