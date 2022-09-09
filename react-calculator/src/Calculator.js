@@ -76,6 +76,8 @@ export default class Calculator extends React.Component {
         return result;
     };
 
+
+
     evaluate() {
         let answer = this.state.result;
         const result = this.parsePlus(answer);
@@ -93,23 +95,17 @@ export default class Calculator extends React.Component {
             this.setState({ result: '' })
         } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '.', '(', ')'].includes(symbol)) {
             this.setState({ result: this.state.result += symbol })
-        } else if (['^2'].includes(symbol)) {
-            this.evaluate()
-            this.setState({ result: Math.pow(this.state.result, 2) })
-        } else if (['^3'].includes(symbol)) {
-            this.evaluate()
-            this.setState({ result: Math.pow(this.state.result, 3) })
-        } else if (symbol === 'sin') {
-            this.evaluate()
-            this.setState({ result: Math.round(Math.sin(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
-        } else if (symbol === 'cos') {
-            this.evaluate()
-            this.setState({ result: Math.round(Math.cos(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
-        } else if (symbol === 'tan') {
-            this.evaluate()
-            this.setState({ result: Math.round(Math.tan(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
         } else {
             this.evaluate()
+            if (['^2', '^3'].includes(symbol)) {
+                this.setState({ result: Math.pow(this.state.result, 2) })
+            } else if (symbol === 'sin') {
+                this.setState({ result: Math.round(Math.sin(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
+            } else if (symbol === 'cos') {
+                this.setState({ result: Math.round(Math.cos(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
+            } else if (symbol === 'tan') {
+                this.setState({ result: Math.round(Math.tan(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
+            }
         }
     }
 
@@ -138,9 +134,9 @@ export default class Calculator extends React.Component {
                 </div>
                 <div className="row">
                     <Button value="0" label="0" onClick={this.handleClick} color="beige" />
-                    <Button value="." label="." onClick={this.handleClick} color="beige" />
                     <Button value="(" label="(" onClick={this.handleClick} color="beige" />
                     <Button value=")" label=")" onClick={this.handleClick} color="beige" />
+                    <Button value="/" label="/" onClick={this.handleClick} color="beige" />
                 </div>
                 <div className="row">
                     <Button value="." label="." onClick={this.handleClick} color="beige" />
