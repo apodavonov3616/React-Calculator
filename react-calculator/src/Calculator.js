@@ -78,7 +78,12 @@ export default class Calculator extends React.Component {
     evaluate() {
         let answer = this.state.result;
         const result = this.parsePlus(answer);
-        this.setState({ result: Math.round(result * 1000000000) / (1000000000) })
+        if (!Number.isNaN(result)) {
+            this.setState({ result: Math.round(result * 1000000000) / (1000000000) })
+        } else {
+            this.setState({ result: 0 })
+            window.alert("oh nooo!")
+        }
     }
 
     handleClick(event) {
@@ -103,12 +108,7 @@ export default class Calculator extends React.Component {
             this.evaluate()
             this.setState({ result: Math.round(Math.tan(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
         } else {
-            try {
-                this.evaluate()
-            } catch {
-                this.setState({ result: '' })
-                window.alert('invalid input :"(')
-            }
+            this.evaluate()
         }
     }
 
