@@ -36,7 +36,7 @@ export default class Calculator extends React.Component {
         }
         const numbersString = this.split(expression, '*', '/');
         const numbers = numbersString.map(noStr => {
-            if (noStr[0] == '(') {
+            if (noStr[0] === '(') {
                 const expr = noStr.substr(1, noStr.length - 2);
                 return this.parsePlus(expr);
             }
@@ -44,7 +44,7 @@ export default class Calculator extends React.Component {
         });
         let result = numbers[0];
         for (const number of numbers.slice(1)) {
-            if (order[0] == "*") {
+            if (order[0] === "*") {
                 result *= number
             } else {
                 result /= number
@@ -60,17 +60,17 @@ export default class Calculator extends React.Component {
         let portion = "";
         for (let i = 0; i < expression.length; ++i) {
             const char = expression[i];
-            if (char == '(') {
+            if (char === '(') {
                 parenthesis++;
-            } else if (char == ')') {
+            } else if (char === ')') {
                 parenthesis--;
             }
-            if (parenthesis == 0 && (operator == char || operator2 == char)) {
+            if (parenthesis === 0 && (operator === char || operator2 === char)) {
                 result.push(portion);
                 portion = "";
             } else portion += char;
         }
-        if (portion != "") {
+        if (portion !== "") {
             result.push(portion);
         }
         return result;
@@ -119,40 +119,40 @@ export default class Calculator extends React.Component {
                 <h1>Alisher's Calculator</h1>
                 <Display result={this.state.result} />
                 <div className="row">
-                    <Button value="7" label="7" onClick={this.handleClick} />
-                    <Button value="8" label="8" onClick={this.handleClick} />
-                    <Button value="9" label="9" onClick={this.handleClick} />
-                    <Button value="+" label="+" onClick={this.handleClick} />
+                    <Button value="7" label="7" onClick={this.handleClick} color="beige" />
+                    <Button value="8" label="8" onClick={this.handleClick} color="beige" />
+                    <Button value="9" label="9" onClick={this.handleClick} color="beige" />
+                    <Button value="+" label="+" onClick={this.handleClick} color="beige" />
                 </div>
                 <div className="row">
-                    <Button value="4" label="4" onClick={this.handleClick} />
-                    <Button value="5" label="5" onClick={this.handleClick} />
-                    <Button value="6" label="6" onClick={this.handleClick} />
-                    <Button value="-" label="-" onClick={this.handleClick} />
+                    <Button value="4" label="4" onClick={this.handleClick} color="beige" />
+                    <Button value="5" label="5" onClick={this.handleClick} color="beige" />
+                    <Button value="6" label="6" onClick={this.handleClick} color="beige" />
+                    <Button value="-" label="-" onClick={this.handleClick} color="beige" />
                 </div>
                 <div className="row">
-                    <Button value="1" label="1" onClick={this.handleClick} />
-                    <Button value="2" label="2" onClick={this.handleClick} />
-                    <Button value="3" label="3" onClick={this.handleClick} />
-                    <Button value="*" label="*" onClick={this.handleClick} />
+                    <Button value="1" label="1" onClick={this.handleClick} color="beige" />
+                    <Button value="2" label="2" onClick={this.handleClick} color="beige" />
+                    <Button value="3" label="3" onClick={this.handleClick} color="beige" />
+                    <Button value="*" label="*" onClick={this.handleClick} color="beige" />
                 </div>
                 <div className="row">
-                    <Button value="0" label="0" onClick={this.handleClick} />
-                    <Button value="." label="." onClick={this.handleClick} />
-                    <Button value="c" label="c" onClick={this.handleClick} />
-                    <Button value="/" label="/" onClick={this.handleClick} />
+                    <Button value="0" label="0" onClick={this.handleClick} color="beige" />
+                    <Button value="." label="." onClick={this.handleClick} color="beige" />
+                    <Button value="(" label="(" onClick={this.handleClick} color="beige" />
+                    <Button value=")" label=")" onClick={this.handleClick} color="beige" />
                 </div>
                 <div className="row">
-                    <Button value="(" label="(" onClick={this.handleClick} />
-                    <Button value=")" label=")" onClick={this.handleClick} />
-                    <Button value="^2" label="^2" onClick={this.handleClick} />
-                    <Button value="^3" label="^3" onClick={this.handleClick} />
+                    <Button value="." label="." onClick={this.handleClick} color="beige" />
+                    <Button value="c" label="C" onClick={this.handleClick} color="pink" />
+                    <Button value="^2" label="^2" onClick={this.handleClick} color="pink" />
+                    <Button value="^3" label="^3" onClick={this.handleClick} color="pink" />
                 </div>
                 <div className="row">
-                    <Button value="sin" label="sin" onClick={this.handleClick} />
-                    <Button value="cos" label="cos" onClick={this.handleClick} />
-                    <Button value="tan" label="tan" onClick={this.handleClick} />
-                    <Button value="=" label="=" onClick={this.handleClick} />
+                    <Button value="sin" label="sin" onClick={this.handleClick} color="pink" />
+                    <Button value="cos" label="cos" onClick={this.handleClick} color="pink" />
+                    <Button value="tan" label="tan" onClick={this.handleClick} color="pink" />
+                    <Button value="=" label="=" onClick={this.handleClick} color="red" />
                 </div>
             </div>
         )

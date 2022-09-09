@@ -4,6 +4,7 @@ class Button extends React.Component {
     render() {
         return (
             <button
+                className={this.props.color}
                 onClick={this.props.onClick}
                 value={this.props.value}>
                 {this.props.label}

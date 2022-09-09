@@ -73,11 +73,23 @@ h1 {
 
 }
 
-#equals-button {
+.equals-button {
   background-color: rgb(6, 201, 235);
 }
 
 .result {
   height: 25px;
   background-color: #cbffdf;
+}
+
+.red {
+  background-color: red;
+}
+
+.beige {
+  background-color: beige;
+}
+
+.pink {
+  background: pink;
 }
