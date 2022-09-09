@@ -1,4 +1,4 @@
-#This is my React Calculator
+# This is my React Calculator
 
 - You can add, subtract, multiply, and divide
 - It also supports multiple operation at the same time
