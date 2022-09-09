@@ -115,7 +115,7 @@ export default class Calculator extends React.Component {
         let symbol = event.target.value;
         if (symbol === "c") {
             this.setState({ result: '' })
-        } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '.'].includes(symbol)) {
+        } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '+', '-', '.', '(', ')'].includes(symbol)) {
             this.setState({ result: this.state.result += symbol })
         } else {
             try {
@@ -156,7 +156,9 @@ export default class Calculator extends React.Component {
                     <button value="c" onClick={this.handleClick}>c</button>
                     <button value="/" onClick={this.handleClick}>/</button>
                 </div>
-                <div className="row" id="equals">
+                <div className="last-row">
+                    <button value="(" onClick={this.handleClick}>(</button>
+                    <button value=")" onClick={this.handleClick}>)</button>
                     <button id="equals-button" value="=" onClick={this.handleClick}>=</button>
                 </div>
             </div>

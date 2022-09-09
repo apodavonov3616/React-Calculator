@@ -51,6 +51,13 @@ html {
   padding: 10px;
 }
 
+.last-row {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #f38021;
+  padding: 10px;
+}
+
 #calculator {
   width: 400;
 }
@@ -63,8 +70,7 @@ html {
 }
 
 #equals-button {
-  width: 50%;
-  background-color: rgb(235, 71, 6);
+  background-color: rgb(6, 201, 235);
 }
 
 .result {
