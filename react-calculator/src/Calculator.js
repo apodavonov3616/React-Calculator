@@ -1,5 +1,6 @@
 import React from "react";
 import Display from "./Display"
+import Button from "./Button"
 
 export default class Calculator extends React.Component {
     constructor(props) {
@@ -81,7 +82,7 @@ export default class Calculator extends React.Component {
         if (!Number.isNaN(result)) {
             this.setState({ result: Math.round(result * 1000000000) / (1000000000) })
         } else {
-            this.setState({ result: 0 })
+            this.setState({ result: '' })
             window.alert("OH NO! CANNOT COMPUTE ⊙▂⊙")
         }
     }
@@ -118,40 +119,40 @@ export default class Calculator extends React.Component {
                 <h1>Alisher's Calculator</h1>
                 <Display result={this.state.result} />
                 <div className="row">
-                    <button value="7" onClick={this.handleClick}>7</button>
-                    <button value="8" onClick={this.handleClick}>8</button>
-                    <button value="9" onClick={this.handleClick}>9</button>
-                    <button value="+" onClick={this.handleClick}>+</button>
+                    <Button value="7" label="7" onClick={this.handleClick} />
+                    <Button value="8" label="8" onClick={this.handleClick} />
+                    <Button value="9" label="9" onClick={this.handleClick} />
+                    <Button value="+" label="+" onClick={this.handleClick} />
                 </div>
                 <div className="row">
-                    <button value="4" onClick={this.handleClick}>4</button>
-                    <button value="5" onClick={this.handleClick}>5</button>
-                    <button value="6" onClick={this.handleClick}>6</button>
-                    <button value="-" onClick={this.handleClick}>-</button>
+                    <Button value="4" label="4" onClick={this.handleClick} />
+                    <Button value="5" label="5" onClick={this.handleClick} />
+                    <Button value="6" label="6" onClick={this.handleClick} />
+                    <Button value="-" label="-" onClick={this.handleClick} />
                 </div>
                 <div className="row">
-                    <button value="1" onClick={this.handleClick}>1</button>
-                    <button value="2" onClick={this.handleClick}>2</button>
-                    <button value="3" onClick={this.handleClick}>3</button>
-                    <button value="*" onClick={this.handleClick}>*</button>
+                    <Button value="1" label="1" onClick={this.handleClick} />
+                    <Button value="2" label="2" onClick={this.handleClick} />
+                    <Button value="3" label="3" onClick={this.handleClick} />
+                    <Button value="*" label="*" onClick={this.handleClick} />
                 </div>
                 <div className="row">
-                    <button value="0" onClick={this.handleClick}>0</button>
-                    <button value="." onClick={this.handleClick}>.</button>
-                    <button value="c" onClick={this.handleClick}>c</button>
-                    <button value="/" onClick={this.handleClick}>/</button>
+                    <Button value="0" label="0" onClick={this.handleClick} />
+                    <Button value="." label="." onClick={this.handleClick} />
+                    <Button value="c" label="c" onClick={this.handleClick} />
+                    <Button value="/" label="/" onClick={this.handleClick} />
                 </div>
                 <div className="row">
-                    <button value="(" onClick={this.handleClick}>(</button>
-                    <button value=")" onClick={this.handleClick}>)</button>
-                    <button value="^2" onClick={this.handleClick}>^2</button>
-                    <button value="^3" onClick={this.handleClick}>^3</button>
+                    <Button value="(" label="(" onClick={this.handleClick} />
+                    <Button value=")" label=")" onClick={this.handleClick} />
+                    <Button value="^2" label="^2" onClick={this.handleClick} />
+                    <Button value="^3" label="^3" onClick={this.handleClick} />
                 </div>
                 <div className="row">
-                    <button value="sin" onClick={this.handleClick}>sin</button>
-                    <button value="cos" onClick={this.handleClick}>cos</button>
-                    <button value="tan" onClick={this.handleClick}>tan</button>
-                    <button id="equals-button" value="=" onClick={this.handleClick}>=</button>
+                    <Button value="sin" label="sin" onClick={this.handleClick} />
+                    <Button value="cos" label="cos" onClick={this.handleClick} />
+                    <Button value="tan" label="tan" onClick={this.handleClick} />
+                    <Button value="=" label="=" onClick={this.handleClick} />
                 </div>
             </div>
         )
