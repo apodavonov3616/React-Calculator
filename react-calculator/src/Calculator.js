@@ -8,29 +8,29 @@ export default class Calculator extends React.Component {
         }
         this.handleClick = this.handleClick.bind(this)
         this.evaluate = this.evaluate.bind(this)
-        this.parsePlusSeparatedExpression = this.parsePlusSeparatedExpression.bind(this)
-        this.parseMinusSeparatedExpression = this.parseMinusSeparatedExpression.bind(this)
-        this.parseMultiplicationAndDivisionSeparatedExpression = this.parseMultiplicationAndDivisionSeparatedExpression.bind(this)
+        this.parsePlus = this.parsePlus.bind(this)
+        this.parseMinus = this.parseMinus.bind(this)
+        this.parseMultiplyAndDivide = this.parseMultiplyAndDivide.bind(this)
         this.split = this.split.bind(this)
     }
 
-    parsePlusSeparatedExpression = (expression) => {
+    parsePlus = (expression) => {
         const numbersString = this.split(expression, '+');
-        const numbers = numbersString.map(noStr => this.parseMinusSeparatedExpression(noStr));
+        const numbers = numbersString.map(noStr => this.parseMinus(noStr));
         const initialValue = 0.0;
         const result = numbers.reduce((acc, no) => acc + no, initialValue);
         return result
     };
 
-    parseMinusSeparatedExpression = (expression) => {
+    parseMinus = (expression) => {
         const numbersString = this.split(expression, '-');
-        const numbers = numbersString.map(noStr => this.parseMultiplicationAndDivisionSeparatedExpression(noStr));
+        const numbers = numbersString.map(noStr => this.parseMultiplyAndDivide(noStr));
         const initialValue = numbers[0];
         const result = numbers.slice(1).reduce((acc, no) => acc - no, initialValue);
         return result;
     };
 
-    parseMultiplicationAndDivisionSeparatedExpression = (expression) => {
+    parseMultiplyAndDivide = (expression) => {
         debugger
         let order = []
         for (const char of expression) {
@@ -43,7 +43,7 @@ export default class Calculator extends React.Component {
         const numbers = numbersString.map(noStr => {
             if (noStr[0] == '(') {
                 const expr = noStr.substr(1, noStr.length - 2);
-                return this.parsePlusSeparatedExpression(expr);
+                return this.parsePlus(expr);
             }
             return +noStr;
         });
@@ -62,21 +62,21 @@ export default class Calculator extends React.Component {
     split = (expression, operator, operator2) => {
         const result = [];
         let braces = 0;
-        let currentChunk = "";
+        let portion = "";
         for (let i = 0; i < expression.length; ++i) {
-            const curCh = expression[i];
-            if (curCh == '(') {
+            const char = expression[i];
+            if (char == '(') {
                 braces++;
-            } else if (curCh == ')') {
+            } else if (char == ')') {
                 braces--;
             }
-            if (braces == 0 && (operator == curCh || operator2 == curCh)) {
-                result.push(currentChunk);
-                currentChunk = "";
-            } else currentChunk += curCh;
+            if (braces == 0 && (operator == char || operator2 == char)) {
+                result.push(portion);
+                portion = "";
+            } else portion += char;
         }
-        if (currentChunk != "") {
-            result.push(currentChunk);
+        if (portion != "") {
+            result.push(portion);
         }
         return result;
     };
@@ -84,10 +84,7 @@ export default class Calculator extends React.Component {
     evaluate() {
         console.log('hi')
         let answer = this.state.result;
-
-        //let's separate by plus first
-        const numbersString = this.split(answer, '+')
-        const result = this.parsePlusSeparatedExpression(answer, '+');
+        const result = this.parsePlus(answer, '+');
         this.setState({ result: result })
     }
 
