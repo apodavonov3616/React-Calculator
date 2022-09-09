@@ -97,8 +97,10 @@ export default class Calculator extends React.Component {
             this.setState({ result: this.state.result += symbol })
         } else {
             this.evaluate()
-            if (['^2', '^3'].includes(symbol)) {
+            if (symbol === '^2') {
                 this.setState({ result: Math.pow(this.state.result, 2) })
+            } else if (symbol === '^3') {
+                this.setState({ result: Math.pow(this.state.result, 3) })
             } else if (symbol === 'sin') {
                 this.setState({ result: Math.round(Math.sin(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
             } else if (symbol === 'cos') {
