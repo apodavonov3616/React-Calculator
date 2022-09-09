@@ -77,7 +77,7 @@ export default class Calculator extends React.Component {
     evaluate() {
         let answer = this.state.result;
         const result = this.parsePlus(answer);
-        this.setState({ result: result })
+        this.setState({ result: Math.round(result * 1000000000) / (1000000000) })
     }
 
     handleClick(event) {
@@ -94,13 +94,13 @@ export default class Calculator extends React.Component {
             this.setState({ result: Math.pow(this.state.result, 3) })
         } else if (symbol === 'sin') {
             this.evaluate()
-            this.setState({ result: Math.sin(this.state.result) })
+            this.setState({ result: Math.round(Math.sin(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
         } else if (symbol === 'cos') {
             this.evaluate()
-            this.setState({ result: Math.cos(this.state.result) })
+            this.setState({ result: Math.round(Math.cos(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
         } else if (symbol === 'tan') {
             this.evaluate()
-            this.setState({ result: Math.tan(this.state.result * 180) })
+            this.setState({ result: Math.round(Math.tan(this.state.result * Math.PI / 180) * 1000000000) / (1000000000) })
         } else {
             try {
                 this.evaluate()
@@ -108,6 +108,12 @@ export default class Calculator extends React.Component {
                 this.setState({ result: '' })
                 window.alert('invalid input :"(')
             }
+        }
+        debugger
+        console.log('hello')
+        if (this.state.result === NaN) {
+            this.setState({ result: '' })
+            window.alert('invalid input :"(')
         }
     }
 
@@ -147,7 +153,7 @@ export default class Calculator extends React.Component {
                     <button value="^3" onClick={this.handleClick}>^3</button>
                 </div>
                 <div className="row">
-                    <button value="sin" onClick={this.handleClick}>sine</button>
+                    <button value="sin" onClick={this.handleClick}>sin</button>
                     <button value="cos" onClick={this.handleClick}>cos</button>
                     <button value="tan" onClick={this.handleClick}>tan</button>
                     <button id="equals-button" value="=" onClick={this.handleClick}>=</button>
