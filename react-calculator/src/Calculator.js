@@ -82,7 +82,7 @@ export default class Calculator extends React.Component {
             this.setState({ result: Math.round(result * 1000000000) / (1000000000) })
         } else {
             this.setState({ result: 0 })
-            window.alert("oh nooo!")
+            window.alert("OH NO! CANNOT COMPUTE ⊙▂⊙")
         }
     }
 
